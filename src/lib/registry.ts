@@ -43,8 +43,10 @@ export function loadRepoUrls(): string[] {
 
 export async function initRegistry(): Promise<void> {
   _providers.clear()
-  _repos     = []
-  _repoUrls  = loadRepoUrls()
+  _repos    = []
+  const raw = loadRepoUrls()
+  _repoUrls = [...new Set(raw)]
+  if (_repoUrls.length !== raw.length) saveRepoUrls(_repoUrls)
   for (const url of _repoUrls) {
     await fetchRepo(url)
   }
