@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { useAppStore } from '@/store'
-import { addRepo, removeRepo, getAllProviders, getRepos } from '@/lib/registry'
+import { addRepo, removeRepo, getAllProviders, getRepos, getRepoUrls } from '@/lib/registry'
 import AppShell from '@/components/layout/AppShell'
 import Spinner from '@/components/ui/Spinner'
 

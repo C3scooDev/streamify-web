@@ -33,8 +33,12 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid URL' }, { status: 400 })
   }
 
-  // Block private/local addresses
-  if (BLOCKED.some(b => parsed.hostname.includes(b))) {
+  // Allow same-origin (e.g. app serving its own manifest at /test.json)
+  const requestHost = req.headers.get('host')?.split(':')[0] ?? ''
+  const isSameOrigin = parsed.hostname === requestHost
+
+  // Block private/local addresses (unless same-origin)
+  if (!isSameOrigin && BLOCKED.some(b => parsed.hostname.includes(b))) {
     return NextResponse.json({ error: 'Blocked' }, { status: 403 })
   }
 
