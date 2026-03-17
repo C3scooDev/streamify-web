@@ -1,0 +1,34 @@
+{
+    "name": "StreamingCommunity",
+    "description": "Provider per StreamingCommunity (streaming-community.trade)",
+    "providers": [
+      {
+        "id": "streaming_community",
+        "name": "StreamingCommunity",
+        "baseUrl": "https://streaming-community.trade",
+        "type": "api_json",
+        "version": 1,
+        "language": "it",
+        "categories": [
+          "movie",
+          "series"
+        ],
+        "description": "Film e serie TV in italiano",
+        "imageBaseUrl": "https://cdn.streamingcommunity.trade/images",
+        "endpoints": {
+          "search": "/api/search?q={query}",
+          "detail": "/titles/{id}-{slug}",
+          "episodes": "/titles/{id}/seasons/{season}",
+          "watch": "/watch/{titleId}?e={episodeId}",
+          "stream": "https://scws.work/master/{scwsId}",
+          "token": "/api/token",
+          "homepage": "/"
+        },
+        "headers": {
+          "Referer": "https://streaming-community.trade",
+          "Origin": "https://streaming-community.trade"
+        },
+        "enabled": true
+      }
+    ]
+  }
