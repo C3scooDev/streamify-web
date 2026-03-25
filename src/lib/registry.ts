@@ -8,9 +8,10 @@ const STORAGE_KEY = 'streamify_repos'
 
 // ── In-memory registry (hydrated from localStorage on mount) ─────────────────
 
-let _providers: Map<string, ProviderConfig> = new Map()
-let _repos:     RepoManifest[]              = []
-let _repoUrls:  string[]                    = []
+let _providers:    Map<string, ProviderConfig> = new Map()
+let _repos:        RepoManifest[]              = []
+let _repoUrls:     string[]                    = []
+let _initPromise:  Promise<void>               = Promise.resolve()
 
 export function getAllProviders(): ProviderConfig[] {
   return [..._providers.values()].filter(p => p.enabled)
@@ -42,6 +43,11 @@ export function loadRepoUrls(): string[] {
 // ── Init ──────────────────────────────────────────────────────────────────────
 
 export async function initRegistry(): Promise<void> {
+  _initPromise = _doInit()
+  await _initPromise
+}
+
+async function _doInit(): Promise<void> {
   _providers.clear()
   _repos    = []
   const raw = loadRepoUrls()
@@ -101,6 +107,7 @@ export async function removeRepo(url: string): Promise<void> {
 export async function search(
   query: string, providerId?: string, page = 1
 ): Promise<MediaItem[]> {
+  await _initPromise
   const configs = providerId
     ? [_providers.get(providerId)].filter(Boolean) as ProviderConfig[]
     : getAllProviders()
@@ -118,6 +125,7 @@ export async function search(
 }
 
 export async function loadDetail(item: MediaItem): Promise<MediaDetail> {
+  await _initPromise
   const cfg = _providers.get(item.providerId)
   if (!cfg) return { item, seasons: [], related: [] }
   return apiJsonDetail(cfg, item)

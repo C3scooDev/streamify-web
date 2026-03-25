@@ -175,6 +175,44 @@ export default function VideoPlayer({
     }
   }, [uiTimer])
 
+  // ── Iframe mode (embed players: supervideo, guardahd, etc.) ─────────────────
+  if (currentLink?.type === 'iframe') {
+    return (
+      <div ref={containerRef} className="relative w-full h-full bg-black flex flex-col">
+        {/* Top bar with back + quality selector */}
+        <div className="flex items-center gap-3 px-4 py-2 bg-black/80 shrink-0">
+          <button onClick={onBack} className="text-white hover:text-signal transition-colors p-1">← </button>
+          <span className="text-sm font-body text-white/80 truncate flex-1">{title}</span>
+          {links.length > 1 && (
+            <div className="flex gap-1 flex-wrap">
+              {links.map((l, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCurrentLink(l)}
+                  className={`text-[10px] px-2 py-0.5 border tracking-widest transition-colors ${
+                    l === currentLink
+                      ? 'border-signal signal-text bg-signal/10'
+                      : 'border-ink-600 text-ink-300 hover:border-signal/50'
+                  }`}
+                >
+                  {l.label ?? `Server ${i + 1}`}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+        <iframe
+          key={currentLink.url}
+          src={currentLink.url}
+          className="flex-1 w-full border-0"
+          allowFullScreen
+          allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+          referrerPolicy="no-referrer"
+        />
+      </div>
+    )
+  }
+
   return (
     <div
       ref={containerRef}

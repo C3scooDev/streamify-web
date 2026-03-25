@@ -8,9 +8,11 @@ export const runtime = 'edge'
 const BLOCKED = ['localhost', '127.0.0.1', '0.0.0.0', '169.254', '10.', '192.168.', '172.']
 
 interface ProxyBody {
-  url:     string
-  headers?: Record<string, string>
-  accept?: 'html' | 'json'
+  url:       string
+  headers?:  Record<string, string>
+  accept?:   'html' | 'json'
+  method?:   'GET' | 'POST'
+  formBody?: string
 }
 
 export async function POST(req: NextRequest) {
@@ -55,8 +57,14 @@ export async function POST(req: NextRequest) {
   }
 
   try {
+    const upstreamMethod = body.method === 'POST' ? 'POST' : 'GET'
     const upstream = await fetch(url, {
-      headers: fetchHeaders,
+      method:  upstreamMethod,
+      headers: {
+        ...fetchHeaders,
+        ...(body.formBody ? { 'Content-Type': 'application/x-www-form-urlencoded' } : {}),
+      },
+      body:    body.formBody ?? undefined,
       redirect: 'follow',
     })
 

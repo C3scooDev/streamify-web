@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s -X POST \"https://streaming-community.trade/\" -d \"do=search&subaction=search&story=wall\" -H \"Content-Type: application/x-www-form-urlencoded\")",
+      "Bash(curl -s \"https://streaming-community.trade/titles/33245-guarda-wally-gator-streaming.html\")",
+      "Bash(npm run:*)",
+      "Bash(curl -s -X POST https://streaming-community.trade/ -d do=searchu0026subaction=searchu0026story=wall-e -H 'Content-Type: application/x-www-form-urlencoded')",
+      "Bash(curl -s -X POST https://streaming-community.trade/ -d do=searchu0026subaction=searchu0026story=walle -H 'Content-Type: application/x-www-form-urlencoded')",
+      "Bash(curl -s -X POST https://streaming-community.trade/ -d do=searchu0026subaction=searchu0026story=pixar -H 'Content-Type: application/x-www-form-urlencoded')"
+    ]
+  }
+}

@@ -16,7 +16,7 @@
       "description": "Film e serie TV in italiano",
       "imageBaseUrl": "https://cdn.streamingcommunity.trade/images",
       "endpoints": {
-        "search": "/api/search?q={query}",
+        "search": "/?do=search&subaction=search&story={query}",
         "detail": "/titles/{id}-{slug}",
         "episodes": "/titles/{id}/seasons/{season}",
         "watch": "/watch/{titleId}?e={episodeId}",
