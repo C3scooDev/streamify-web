@@ -66,6 +66,7 @@ async function fetchRepo(repoUrl: string): Promise<RepoManifest | null> {
       description: data['description'] as string | undefined,
       providers:   ((data['providers'] as ProviderConfig[]) ?? []),
     }
+    _repos = _repos.filter(r => r.url !== repoUrl)
     _repos.push(manifest)
     for (const cfg of manifest.providers) {
       if (cfg.enabled !== false) _providers.set(cfg.id, cfg)

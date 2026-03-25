@@ -90,7 +90,9 @@ export default function SettingsPage() {
             </p>
           ) : (
             <div className="space-y-2">
-              {repos.map((repo) => (
+              {repos
+                .filter((r, i, a) => a.findIndex(x => x.url === r.url) === i)
+                .map((repo) => (
                 <div key={repo.url} className="flex items-center gap-3 p-3 bg-ink-800 border border-ink-700">
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-body font-bold">{repo.name}</p>
