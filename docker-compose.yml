@@ -1,0 +1,14 @@
+services:
+  streamify-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: streamify-web
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.example
+    environment:
+      - NODE_ENV=production
+      - NEXT_TELEMETRY_DISABLED=1
+    restart: unless-stopped
