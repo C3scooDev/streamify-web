@@ -11,6 +11,51 @@ npm run dev
 # → http://localhost:3000
 ```
 
+## Docker (condivisione su piu dispositivi)
+
+### Prerequisiti
+
+- Docker + Docker Compose installati
+- Dispositivi collegati alla stessa rete LAN
+
+### Avvio rapido (produzione)
+
+1. Crea il file ambiente locale:
+
+```bash
+cp .env.example .env
+```
+
+2. Build + avvio container:
+
+```bash
+docker compose up -d --build
+```
+
+3. Apri l'app:
+- sul dispositivo host: `http://localhost:3000`
+- da altri dispositivi in LAN: `http://IP_DEL_TUO_PC:3000`
+
+Per trovare l'IP del tuo host:
+
+```bash
+hostname -I
+```
+
+### Comandi utili
+
+```bash
+# log container
+docker compose logs -f app
+
+# stop
+docker compose down
+
+# rebuild pulita
+docker compose build --no-cache
+docker compose up -d
+```
+
 ## Deploy to Cloudflare Pages (free, permanent)
 
 ### Option A — GitHub auto-deploy (recommended)
