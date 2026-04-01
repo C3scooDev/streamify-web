@@ -11,6 +11,39 @@ npm run dev
 # → http://localhost:3000
 ```
 
+## Docker (condivisione su piu dispositivi)
+
+### Avvio rapido con Docker Compose
+
+```bash
+docker compose up --build -d
+```
+
+L'app verra esposta sulla porta `3000` del tuo host, quindi accessibile da:
+
+- stesso dispositivo: `http://localhost:3000`
+- altri dispositivi in LAN: `http://IP_DEL_TUO_HOST:3000`
+
+Per fermare:
+
+```bash
+docker compose down
+```
+
+### Build/run senza Compose
+
+```bash
+docker build -t streamify-web .
+docker run --rm -p 3000:3000 --name streamify-web streamify-web
+```
+
+### Nota rete locale
+
+Per la condivisione su altri dispositivi assicurati che:
+
+- host e dispositivi siano sulla stessa rete
+- firewall del computer host permetta traffico in ingresso sulla porta `3000`
+
 ## Deploy to Cloudflare Pages (free, permanent)
 
 ### Option A — GitHub auto-deploy (recommended)
